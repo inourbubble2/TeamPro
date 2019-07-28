@@ -1,0 +1,47 @@
+@charset "UTF-8";
+table {
+	text-align: center;
+	border: 1px solid black;
+	margin: 0 auto;
+}
+
+td {
+	border: 1px solid black;
+	margin: 10px;
+	padding-top: 10px;
+}
+#btns_1 {
+	display: block;
+	width: 212px;
+	margin: 0 auto;
+	margin-top: 15px;
+	font-size: 110%;
+}
+#btns_2{
+	margin: 0 auto;
+	font-size: 70%;
+}
+#memlist_id{
+	text-decoration: underline;
+	color: #345ddd;
+}
+
+#btns_3 {
+	display: block;
+	width: 300px;
+	margin: 0 auto;
+	margin-top: 15px;
+}
+
+#admin_href{
+	font-size: 160%;
+	color: #345def;
+	text-decoration: underline;
+}
+
+#content_bd{
+	margin: 90px 0px 0px 40px;
+}
+textarea{
+padding: 12px 20px;
+}

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="come.team.mapper.ProductMapper">
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach collection="typeArr" item="type">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()"> productType like '%'||#{keyword}||'%' </when> <!-- productType = T -->
+						<when test="type == 'C'.toString()"> productCode like '%'||#{keyword}||'%' </when> <!-- productCode = C -->
+						<when test="type == 'N'.toString()"> productName like '%'||#{keyword}||'%' </when> <!-- productName = N -->
+						<when test="type == 'M'.toString()"> manufacturer like '%'||#{keyword}||'%' </when> <!-- manufacturer = M -->
+						<when test="type == 'D'.toString()"> description like '%'||#{keyword}||'%' </when> <!-- description = D -->
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
+	<select id="findPagingList"
+		resultType="come.team.domain.ProductVO">
+		<![CDATA[
+		  select 
+		  PRODUCTCODE, PRODUCTNAME, MANUFACTURER, PRICE, DESCRIPTION, OS,
+	      PRODUCTTYPE, STOCK, USABILITY
+	      from (
+	      		select /*+ INDEX_DESC(TBL_PRODUCT PK_PRODUCT) */
+	      		rownum rn, PRODUCTCODE, PRODUCTNAME, MANUFACTURER, PRICE, DESCRIPTION, OS,
+	      				   PRODUCTTYPE, STOCK, USABILITY
+	      		from TBL_PRODUCT
+	      		where
+  		]]>
+		<include refid="criteria"></include>
+		  <![CDATA[
+		  rownum <= #{pageNum} * #{amount}
+		      )
+		  where rn > (#{pageNum} -1) * #{amount}
+		  ]]>
+	</select>
+
+	<select id="productView" resultType="come.team.domain.ProductVO"> select productCode,
+		productName, manufacturer, price, description, os, productType,
+		stock,usability from tbl_product where productCode = #{productCode}
+	</select>
+
+	<select id="countAll" resultType="int">
+		select count(*) from TBL_PRODUCT
+		where
+		<include refid="criteria"></include>
+		STOCK > 0
+	</select>
+
+	<insert id="insertProduct">
+		insert into TBL_PRODUCT (PRODUCTCODE, PRODUCTNAME, MANUFACTURER, PRICE, DESCRIPTION, OS,
+	      PRODUCTTYPE, STOCK, USABILITY)
+	    values(#{productCode}, #{productName}, #{manufacturer}, #{price}, #{description}, #{os}, #{productType}, #{stock}, #{usability})  
+	</insert>
+	
+	<delete id="delete">
+		delete
+		from TBL_PRODUCT
+		where PRODUCTCODE =
+		#{productCode}
+	</delete>
+
+	<update id="update">
+		update TBL_PRODUCT
+		set PRODUCTNAME=#{productName},
+		MANUFACTURER=#{manufacturer}, PRICE=#{price},
+		DESCRIPTION=#{description}, OS=#{os}, PRODUCTTYPE=#{productType},
+		STOCK=#{stock}, USABILITY=#{usability}
+		where PRODUCTCODE=#{productCode}
+	</update>
+	
+	<!-- <select id="total" resultType="int">
+		select MAX(PRICE)
+		from TBL_PRODUCT
+	</select> -->
+	
+</mapper>

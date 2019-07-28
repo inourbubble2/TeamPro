@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="come.team.mapper.ReplyMapper">
+
+	<select resultType="come.team.domain.ReplyVO" id="getReply">
+		<![CDATA[ 
+		select replyNo, title, name, id, inquiryNo, replyDate, content replyCount
+			from 
+				(
+				select /*+ INDEX_DESC(TBL_REPLY PK_REPLY) */
+			rownum rn, replyNo, title, name, id, inquiryNo, replyDate, content, replyCount
+			from 
+			TBL_INQUIRY
+			 where 
+			
+			   rownum <= #{pageNum} * #{amount}
+			   )
+			   where rn > (#{pageNum} -1) * #{amount}
+			 ]]>
+	</select>
+
+	<select resultType="come.team.domain.ReplyVO" id="getReplyList">
+		select * from
+		TBL_REPLY
+	</select>
+
+	<select resultType="int" id="getReplyNum">
+		select count(*) from TBL_REPLY
+	</select>
+
+	<select resultType="come.team.domain.ReplyVO" id="getReplyView">
+		select replyNo,
+		inquiryNo, id, title, content, replyDate
+		from TBL_REPLY where replyNo =
+		#{replyNo}
+	</select>
+
+	<select resultType="come.team.domain.ReplyVO"	
+		id="getReplyListByInquiryNo">
+		select replyNo, inquiryNo, id, title, content, replyDate
+		from TBL_REPLY where inquiryNo = #{inquiryNo}
+	</select>
+	
+	<insert id="registerReplyInquiry">
+		insert into tbl_reply (replyNo, inquiryNo, title, id, content)
+		values(tbl_reply_seq.nextval,
+		(select inquiryNo from tbl_inquiry where
+		inquiryNo = #{inquiryNo}), #{title}, #{id}, #{content})
+		<!-- values (seq_reply.nextval, #{replyNo}, #{title}, #{id}) -->
+	</insert>
+	
+</mapper>

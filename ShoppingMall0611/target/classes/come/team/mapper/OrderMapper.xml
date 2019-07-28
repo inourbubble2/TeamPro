@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="come.team.mapper.OrderMapper">
+	
+	<!-- 주문 정보 넣기 -->
+	<insert id="orderInput">
+		insert into tbl_payment (payCode, id, name, totalPrice, productCode ,amount, address, contact)
+		values (#{payCode}, #{id}, #{name}, #{totalPrice}, #{productCode}, #{amount}, #{address}, #{contact})
+	</insert>
+	
+	<!-- 주문 상세 정보 넣기 -->
+ 	<insert id="orderDetailInput">
+ 		insert into tbl_payment_detail (detailNo, payCode, productCode, amount)
+ 		select tbl_payment_detail_seq.nextval, #{payCode}, productCode, amount
+ 			from tbl_cart
+ 	</insert> 
+ 	
+ 	<!-- 주문 목록 -->
+ 	<select id="paymentList" resultType="come.team.domain.PaymentVO">
+ 		select
+     		payCode, id, name, address, contact, amount, totalPrice, payDate, productCode
+ 		from tbl_payment 
+     where id = #{id}
+ 	</select>
+ 	
+ 	<!-- 주문 상세 조회 -->
+ 	<select id="paymentView" resultType="come.team.domain.PaymentListVO">
+ 		select
+    		p.payCode, p.id, p.name, p.address, p.contact, p.totalPrice, p.amount, p.payDate, p.productCode,
+     		d.detailNo, d.productCode, d.amount,
+     		g.productName, g.price
+ 		from tbl_payment p
+         	inner join tbl_payment_detail d
+            	 on p.payCode = d.payCode
+         	inner join tbl_product g
+             	on d.productCode = g.productCode
+     	where p.id = #{id} and p.payCode = #{payCode}
+ 	</select>
+ 	
+ 	<!-- 주문 후 포인트 차감 -->
+ 	<update id="updatePoint">
+ 		update tbl_user
+ 		set
+ 			point = #{point}
+ 		where id = #{id}	 
+ 	</update>
+ 	
+ 	<!-- 주문 목록(관리자) -->
+ 	<select id="adminPaymentList" resultType="come.team.domain.PaymentVO">
+ 		select *
+ 		from tbl_payment 
+ 	</select>
+</mapper>

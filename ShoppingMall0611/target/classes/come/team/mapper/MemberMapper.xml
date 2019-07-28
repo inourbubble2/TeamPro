@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="come.team.mapper.MemberMapper">
+
+<resultMap type="come.team.domain.MemberVO" id="MemberMap">
+    <id property="id" column="id"/>
+    <result property="id" column="id"/>
+    <result property="password" column="password"/>
+    <result property="name" column="name"/>
+    <result property="address" column="address"/>
+    <result property="contact" column="contact"/>
+    <result property="email" column="email"/>
+    <result property="point" column="point"/>
+    <result property="regiDate" column="regiDate"/>
+    <result property="updateDate" column="updateDate"/>
+    <collection property="authList" resultMap="authMap">
+    </collection> 
+  </resultMap>
+  
+  <resultMap type="come.team.domain.AuthVO" id="authMap">
+    <result property="id" column="id"/>
+    <result property="auth" column="auth"/>
+  </resultMap>
+
+<!-- 로그인 -->
+<select id="read" resultMap="MemberMap">
+SELECT 
+  mem.id, password, name, address, contact, email, point, enabled, regiDate, updateDate, auth
+FROM 
+  TBL_USER mem LEFT OUTER JOIN TBL_USER_AUTH auth on mem.id = auth.id
+WHERE mem.id = #{id} 
+</select>
+
+<!-- 회원가입 -->
+<insert id="join">
+		insert all
+		into TBL_USER (ID, PASSWORD, NAME, ADDRESS, CONTACT, EMAIL)
+	    values(#{id}, #{password}, #{name}, #{address}, #{contact}, #{email})
+	    into tbl_user_auth (id, auth)
+	    values(#{id}, 'ROLE_MEMBER')
+	    select * from dual  
+</insert>
+
+<!-- 회원정보 -->
+<select id="list" resultType="come.team.domain.MemberVO">
+		select ID, PASSWORD, NAME, ADDRESS, CONTACT, EMAIL, POINT, REGIDATE, UPDATEDATE
+		from TBL_USER
+		order by REGIDATE desc
+</select>
+
+<!-- 계정정보 -->
+<select id="getMember" resultType="come.team.domain.MemberVO">
+		select ID, PASSWORD, NAME, ADDRESS, CONTACT, EMAIL, POINT, REGIDATE, UPDATEDATE
+		from TBL_USER
+		where ID = #{id}
+</select>
+
+<update id="updateMember">
+	update tbl_user
+	set
+		password = #{password},
+		address = #{address},
+		contact = #{contact},
+		email = #{email},
+		point = #{point}
+	where id = #{id}
+</update>
+
+<delete id="deleteMember">
+	delete 
+		from TBL_user  
+		where id = #{id} 
+</delete>
+	
+</mapper>

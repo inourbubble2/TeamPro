@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="come.team.mapper.ReviewMapper">
+
+	<select id="getReviewList"
+		resultType="come.team.domain.ReviewVO">
+		<![CDATA[
+			select 
+				REVIEWNO, PRODUCTCODE, PAYCODE,
+				ID, NAME, CONTENT, REVIEWPOINT, REVIEWDATE
+			from (
+				select /*+ INDEX_DESC(TBL_REVIEW PK_REVIEW) */
+				rownum rn, REVIEWNO, PRODUCTCODE, PAYCODE,
+						   ID, NAME, CONTENT, REVIEWPOINT, REVIEWDATE
+				from TBL_REVIEW
+				where rownum <= #{criteria.pageNum} * #{criteria.amount}
+				)
+			where rn > (#{criteria.pageNum} -1) * #{criteria.amount} and productCode = #{productCode}
+		]]>
+	</select>
+	
+	<select id="countAllReview" resultType="int">
+		select count(*) from TBL_REVIEW where productCode = #{productCode}
+	</select>
+	
+	<insert id="registerReview">
+		insert into 
+		tbl_review(reviewNo, productCode, id, name, content, reviewPoint, reviewDate)
+		values(tbl_review_seq.nextval, #{productCode}, #{id}, #{name}, #{content}, ${reviewPoint}, sysdate)
+	</insert>
+	
+	<select id="getReview" resultType="come.team.domain.ReviewVO">
+		select * from TBL_REVIEW where reviewNo = #{reviewNo}
+	</select>
+	
+	<update id="modifyReview">
+		update TBL_REVIEW set content = #{content}, reviewDate = #{reviewDate} where reviewNo = #{reviewNo}
+	</update>
+	
+	<delete id="deleteReview">
+		delete from TBL_REVIEW where reviewNo = #{reviewNo} and id = #{id}
+	</delete>
+
+ 
+ 	<select id="checkPayment" resultType="come.team.domain.PaymentVO">
+ 		select *
+ 		from TBL_PAYMENT
+ 		where id = #{id} and productCode = #{productCode}
+ 	</select>
+	
+</mapper>

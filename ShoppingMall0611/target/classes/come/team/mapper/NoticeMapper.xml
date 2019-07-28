@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="come.team.mapper.NoticeMapper">
+
+	<select id="getNoticeView" resultType="come.team.domain.NoticeVO">
+		select NOTICENO, ID, TITLE, CONTENT, NOTICEDATE
+		from TBL_NOTICE
+		where NOTICENO=#{noticeNo}
+	</select>
+
+	<select id="getNoticeList"
+		resultType="come.team.domain.NoticeVO">
+			select NOTICENO, ID, TITLE, CONTENT, NOTICEDATE
+			from TBL_NOTICE
+			order by NOTICENO desc
+	</select>
+	
+	<insert id="registerNotice">
+		insert into TBL_NOTICE(NOTICENO, ID, TITLE, CONTENT)
+		values(tbl_notice_seq.nextval, #{id}, #{title}, #{content})
+	</insert>
+	
+	<update id="updateNotice">
+		update TBL_NOTICE
+		set TITLE=#{title}, CONTENT=#{content}, NOTICEDATE=sysdate
+		where NOTICENO=#{noticeNo}
+	</update>
+	
+	<delete id="deleteNotice">
+		delete from TBL_NOTICE
+		where NOTICENO=#{noticeNo}
+	</delete>
+</mapper>
