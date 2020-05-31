@@ -40,7 +40,7 @@
 								<p>
 									<span>가격</span>
 									<fmt:formatNumber pattern="###,###,###"
-										value="${paymentList.price}" />
+										value="${paymentList.totalPrice}" />
 									원
 								</p>
 								<p>
