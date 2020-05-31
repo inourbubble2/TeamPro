@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="come.team.mapper.CartMapper">
+	<!-- 카트담기 -->
+	<insert id="addCart">
+		insert into tbl_cart (cartNo, productCode, id, amount, price)
+		values (tbl_cart_seq.nextval, #{productCode}, #{id}, #{amount}, #{price})
+	</insert>
+	
+	<!-- 카트리스트 -->
+	<select id="getCartList" resultType="come.team.domain.CartVO">
+		select * from TBL_CART where id = #{id}
+	</select>
+
+	<!-- 카트 삭제 -->
+	<delete id="deleteCart">
+		delete tbl_cart
+		where cartNo = #{cartNo}
+	</delete>
+ 	
+ 	<!-- 주문 정보 입력 후 카트 비우기 -->
+ 	<delete id="deleteCartAfterOrder">
+ 		delete tbl_cart
+ 		where id = #{id}
+ 	</delete>
+ 	
+</mapper>
