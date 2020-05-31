@@ -2,11 +2,9 @@ package come.team.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 
 import come.team.domain.Criteria;
 import come.team.domain.InquiryVO;
-import come.team.domain.ReplyVO;
 
 public interface InquiryMapper {
 	

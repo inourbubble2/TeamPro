@@ -250,7 +250,7 @@
 					<ul class="menu-list">
 						<li><a href="/">Home</a></li>
 						<li><a href="/product/list">Shop</a></li>
-						<li><a href="/product/list?type=productType&keyword=데스크탑">PC</a></li>
+						<li><a href="/product/list?type=productType&keyword=데스크탑">Desktop</a></li>
 						<li><a href="/product/list?type=productType&keyword=노트북">Laptop</a></li>
 						<li><a href="/product/list?type=productType&keyword=모니터">Monitor</a></li>
 						<li><a href="/admin/index">관리자용</a></li>

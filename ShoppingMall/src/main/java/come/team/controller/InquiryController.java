@@ -1,19 +1,16 @@
 package come.team.controller;
 
-import java.security.Principal;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import come.team.domain.Criteria;
 import come.team.domain.InquiryVO;
-import come.team.domain.MemberVO;
 import come.team.domain.PageDTO;
 import come.team.domain.ReplyVO;
 import come.team.service.InquiryService;

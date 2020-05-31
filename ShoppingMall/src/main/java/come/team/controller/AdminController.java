@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import come.team.domain.Criteria;
 import come.team.domain.PageDTO;
-import come.team.domain.PaymentVO;
 import come.team.domain.ProductVO;
 import come.team.service.MemberService;
 import come.team.service.ProductService;

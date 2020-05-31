@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<!-- <link type="text/css" rel="stylesheet" href="../../../resources/css/add_table.css" /> -->
 
 <%@include file="../includes/header.jsp"%>
 
@@ -36,7 +35,7 @@
 					</div>
 					<div class="product-body">
 						<h3 class="product-price">
-							<fmt:formatNumber pattern="###,###,###" value="${product.price }"/>원
+							<fmt:formatNumber pattern="###,###,###,###" value="${product.price }"/>원
 						</h3>
 						<h2 class="product-name">
 							<a href="#"> <c:out value="${product.productName }" />

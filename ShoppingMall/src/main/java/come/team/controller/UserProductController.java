@@ -1,9 +1,5 @@
 package come.team.controller;
 
-
-import java.security.Principal;
-
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +19,6 @@ import lombok.extern.log4j.Log4j;
 public class UserProductController {
 	
 	private ProductService productService;
-	/*private CartService cartservice;*/
-//	private ReviewService reviewService;
 	
 	// 상품 리스트 보여주기
 	@GetMapping("/list")

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import come.team.domain.NoticeVO;
-import come.team.mapper.MemberMapper;
 import come.team.mapper.NoticeMapper;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;

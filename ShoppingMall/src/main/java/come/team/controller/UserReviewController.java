@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import come.team.domain.Criteria;
 import come.team.domain.MemberVO;
-import come.team.domain.PaymentVO;
 import come.team.domain.ReviewPageDTO;
 import come.team.domain.ReviewVO;
 import come.team.service.MemberService;
