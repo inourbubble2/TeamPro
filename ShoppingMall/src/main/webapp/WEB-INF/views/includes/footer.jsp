@@ -14,9 +14,7 @@
 					<div class="footer">
 						<!-- footer logo -->
 						<div class="footer-logo">
-							<a class="logo" href="#">
-		            <img src="" alt=""> <!-- 쇼핑몰 로고 img -->
-		          </a>
+							<a class="logo" href="#"></a>
 						</div>
 						<!-- /footer logo -->
 

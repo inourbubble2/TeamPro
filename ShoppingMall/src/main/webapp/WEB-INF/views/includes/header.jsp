@@ -103,6 +103,13 @@
 						<li><a href="/notice/list">Notice</a></li>
 						<li><a href="/product/list">Store</a></li>
 						<li><a href="/inquiry/list">Inquiry</a></li>
+						<sec:authorize access="isAnonymous()">
+							<li><a href="/customLogin" class="text-uppercase">Login</a></li> 
+							<li><a href="/join" class="text-uppercase">Join</a></li>
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							<li><a href="/customLogout" class="text-uppercase">Logout</a></li>
+						</sec:authorize>
 					</ul>
 				</div>
 			</div>
@@ -152,12 +159,10 @@
 								<strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
 							</div>
 							<sec:authorize access="isAnonymous()">
-									<b>guest님</b><br>
-									<a href="/customLogin" class="text-uppercase">Login</a> / <a href="/join" class="text-uppercase">Join</a>
+									<b>guest</b><br>
 							</sec:authorize>
 							<sec:authorize access="isAuthenticated()">
 									<b><sec:authentication property="principal.username"/>님</b><br> <!-- username means id -->
-									<a href="/customLogout" class="text-uppercase">Logout</a>
 							</sec:authorize>
 							<ul class="custom-menu">								
 								<!-- 로그인되어있으면 -->
